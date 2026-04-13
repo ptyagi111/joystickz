@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { PageHeader, Section, ImportBlock, DocExample, PropsTable } from "@/components/docs/doc-section";
+import { PageHeader, Section, ImportBlock, DocExample, PropsTable, DoDont, DocCallout } from "@/components/docs/doc-section";
+import { ButtonPlayground } from "@/components/docs/button-playground";
 import type { ReactNode } from "react";
 
 /* ─── demo icons ─────────────────────────────────────────────── */
@@ -87,8 +88,10 @@ export default function ButtonDocs() {
         title="Button"
         description="The primary interactive element. Supports text-only, icon+text (prefix and postfix), and icon-only layouts across 3 variants and 3 sizes."
         tag="Foundation"
+        status="stable"
       />
       <ImportBlock pkg="Button" />
+      <ButtonPlayground />
 
       {/* ── TEXT ONLY ── */}
       <Section title="Text only" description="The baseline — no icon props needed.">
@@ -314,6 +317,46 @@ export default function ButtonDocs() {
           { name: "className",  type: "string", description: "Extra Tailwind classes" },
           { name: "children",   type: "ReactNode", description: "Label text. Omit entirely (with iconStart/iconEnd) for icon-only square layout" },
         ]} />
+      </Section>
+
+      {/* ── DO / DON'T ── */}
+      <Section title="Do / Don't">
+        <DoDont
+          doItem={{
+            children: (
+              <div className="flex items-center gap-3">
+                <Button variant="primary" size="medium">Play Now</Button>
+                <Button variant="secondary" size="medium">View Rules</Button>
+              </div>
+            ),
+            description: "Use primary for the single most important action. Use secondary for supporting actions.",
+          }}
+          dontItem={{
+            children: (
+              <div className="flex items-center gap-3">
+                <Button variant="primary" size="medium">Play Now</Button>
+                <Button variant="primary" size="medium">View Rules</Button>
+                <Button variant="primary" size="medium">Cancel</Button>
+              </div>
+            ),
+            description: "Don't use multiple primary buttons side by side — it creates ambiguity about what to do.",
+          }}
+        />
+      </Section>
+
+      {/* ── GUIDELINES ── */}
+      <Section title="Guidelines">
+        <div className="space-y-3">
+          <DocCallout variant="tip">
+            Use <strong>big</strong> size for primary CTAs (e.g. &quot;Play Now&quot;, &quot;Join Game&quot;). Use <strong>small</strong> for inline or compact contexts like table rows.
+          </DocCallout>
+          <DocCallout variant="info">
+            The <strong>tertiary</strong> variant has no fill — just a border. Use it for low-priority or cancel actions.
+          </DocCallout>
+          <DocCallout variant="warning">
+            Always pair icon-only buttons with a tooltip or accessible <code className="text-arcade-brand font-mono text-[12px]">aria-label</code> so screen readers can describe the action.
+          </DocCallout>
+        </div>
       </Section>
 
       {/* ── ICON SIZING GUIDE ── */}
