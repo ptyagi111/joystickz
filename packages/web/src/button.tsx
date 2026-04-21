@@ -2,7 +2,7 @@ import { type ButtonHTMLAttributes, type ReactNode } from "react";
 import { cn } from "./utils";
 
 type ButtonVariant = "primary" | "secondary" | "tertiary";
-type ButtonSize = "big" | "medium" | "small";
+type ButtonSize = "big" | "medium" | "small" | "xsmall";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -20,6 +20,7 @@ const textSizeClasses: Record<ButtonSize, string> = {
   big:    "px-5 py-3.5 text-body-xl font-bold leading-normal",
   medium: "px-6 py-[14.5px] text-body-l font-bold leading-tight",
   small:  "px-5 py-[9px] text-body-m font-bold leading-none",
+  xsmall: "px-3 py-1 text-body-s font-bold leading-none",
 };
 
 /** Equal padding (square) for icon-only buttons */
@@ -27,6 +28,7 @@ const iconOnlySizeClasses: Record<ButtonSize, string> = {
   big:    "p-3.5",
   medium: "p-[14.5px]",
   small:  "p-[9px]",
+  xsmall: "p-1",
 };
 
 /** Gap between icon and label when combined */
@@ -34,6 +36,7 @@ const iconGapClasses: Record<ButtonSize, string> = {
   big:    "gap-2.5",
   medium: "gap-2",
   small:  "gap-1.5",
+  xsmall: "gap-1",
 };
 
 /* ── variant tokens ───────────────────────────────────────────── */
