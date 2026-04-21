@@ -1,0 +1,41 @@
+{
+  "name": "@ptyagi111/jsz-tokens",
+  "version": "0.0.1",
+  "description": "Joystickz design system tokens — colors, typography, spacing, radii. Framework-agnostic.",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./colors": {
+      "types": "./src/colors.ts",
+      "default": "./src/colors.ts"
+    },
+    "./spacing": {
+      "types": "./src/spacing.ts",
+      "default": "./src/spacing.ts"
+    },
+    "./typography": {
+      "types": "./src/typography.ts",
+      "default": "./src/typography.ts"
+    },
+    "./radius": {
+      "types": "./src/radius.ts",
+      "default": "./src/radius.ts"
+    }
+  },
+  "files": ["src"],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  }
+}

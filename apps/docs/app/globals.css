@@ -1,0 +1,87 @@
+@import "tailwindcss";
+@source "../../../packages/web/src";
+
+/* ============================================================
+   ARCADE DESIGN SYSTEM — GLOBAL TOKENS
+   Source: Figma file "Arcade-DSL" (j5l9mSi413UrUpzbJHXQ0w)
+   ============================================================ */
+
+@theme inline {
+  /* ── Typography ── */
+  --font-sans: var(--font-dm-sans), "DM Sans", sans-serif;
+
+  /* ── Background colors ── */
+  --color-arcade-bg:           #10101e;
+  --color-arcade-bg-secondary: #24243b;
+  --color-arcade-bg-tertiary:  #32324e;
+  --color-arcade-bg-deep:      #020217;
+  --color-arcade-neutral:      #f5f5f5;
+
+  /* ── Brand ── */
+  --color-arcade-brand:      #ffee35;
+  --color-arcade-brand-dark: #cc7701;
+
+  /* ── Positive (success/green) ── */
+  --color-arcade-positive:         #14ae5c;
+  --color-arcade-positive-hover:   #009951;
+  --color-arcade-positive-dark:    #008043;
+  --color-arcade-positive-deeper:  #024023;
+
+  /* ── Negative (error/red) ── */
+  --color-arcade-negative:        #c00f0d;
+  --color-arcade-negative-dark:   #690807;
+  --color-arcade-negative-deeper: #4d0b0a;
+
+  /* ── Attentive (warning/orange) ── */
+  --color-arcade-attentive:        #ffa935;
+  --color-arcade-attentive-dark:   #cc7702;
+  --color-arcade-attentive-darker: #995901;
+
+  /* ── Special ── */
+  --color-arcade-gem: #ea3fb8;
+
+  /* ── Borders ── */
+  --color-arcade-border:      #8484b3;
+  --color-arcade-border-dark: #24243b;
+
+  /* ── Overlays ── */
+  --color-arcade-overlay: rgba(0, 0, 0, 0.5);
+  --color-arcade-blanket: rgba(0, 0, 0, 0.85);
+
+  /* ── Font sizes (from Figma type scale) ── */
+  --text-h1:      3.5rem;    /* 56px — H1 */
+  --text-h2:      2rem;      /* 32px — H2 */
+  --text-h3:      1.5rem;    /* 24px — H3 */
+  --text-body-xl: 1.25rem;   /* 20px — Body XL */
+  --text-body-l:  1rem;      /* 16px — Body L  */
+  --text-body-m:  0.875rem;  /* 14px — Body M  */
+  --text-body-s:  0.75rem;   /* 12px — Body S  */
+
+  /* ── Font weights ── */
+  --font-weight-regular:   400;
+  --font-weight-bold:      700;
+  --font-weight-extrabold: 800;
+
+  /* ── Letter spacing ── */
+  --tracking-heading: -0.03em;
+
+  /* ── Line heights ── */
+  --leading-tight:  1.2;
+  --leading-normal: 1.4;
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-arcade-bg);
+  color: white;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-l);
+  line-height: var(--leading-tight);
+}
