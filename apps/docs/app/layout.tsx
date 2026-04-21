@@ -9,8 +9,8 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Arcade",
-  description: "Arcade gaming platform",
+  title: "Joystickz Design System",
+  description: "Joystickz DS — the design language of Skillz Arcade",
 };
 
 export default function RootLayout({
