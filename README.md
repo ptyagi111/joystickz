@@ -7,7 +7,7 @@ The Joystickz (JSZ) design system — design tokens, components, and documentati
 ```
 joystickz/
 ├── apps/
-│   └── docs/         Next.js docs site → arcade-mcp-testing.vercel.app
+│   └── docs/         Next.js docs site → joystickz.vercel.app
 └── packages/
     ├── tokens/       @ptyagi111/jsz-tokens — colors, typography, spacing, radii
     └── web/          @ptyagi111/jsz-web    — React components (web)
