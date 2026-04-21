@@ -38,7 +38,7 @@ export const colors = {
   },
   border: {
     primary: "#8484b3",
-    dark:    "#24243b",
+    dark:    "#1b1b33",
   },
   overlay: {
     default: "rgba(0, 0, 0, 0.5)",

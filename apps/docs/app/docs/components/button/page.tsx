@@ -70,9 +70,9 @@ function ShareIcon({ size = 18 }: { size?: number }) {
 /* ─── size-scaled icon helpers ───────────────────────────────── */
 
 type IconFn = (props: { size?: number }) => ReactNode;
-const iconSize: Record<"big" | "medium" | "small", number> = { big: 20, medium: 18, small: 16 };
+const iconSize: Record<"big" | "medium" | "small" | "xsmall", number> = { big: 20, medium: 18, small: 16, xsmall: 12 };
 
-function scaled(Icon: IconFn, size: "big" | "medium" | "small") {
+function scaled(Icon: IconFn, size: "big" | "medium" | "small" | "xsmall") {
   return <Icon size={iconSize[size]} />;
 }
 
@@ -122,6 +122,16 @@ export default function ButtonDocs() {
             {SIZES.map((s) => (
               <Button key={s} disabled size={s}>Play Now</Button>
             ))}
+          </div>
+        </DocExample>
+
+        <DocExample
+          title="Xsmall (tertiary)"
+          description="The most compact size. Per the Figma spec, xsmall is shown only for the tertiary variant — use it for low-emphasis inline actions (e.g. badge-adjacent CTAs, dense tables)."
+          code={`<Button variant="tertiary" size="xsmall">Play Now</Button>`}
+        >
+          <div className="flex flex-wrap items-center gap-3">
+            <Button variant="tertiary" size="xsmall">Play Now</Button>
           </div>
         </DocExample>
       </Section>
@@ -309,7 +319,7 @@ export default function ButtonDocs() {
       <Section title="Props">
         <PropsTable props={[
           { name: "variant",    type: '"primary" | "secondary" | "tertiary"', default: '"primary"', description: "Visual style of the button" },
-          { name: "size",       type: '"big" | "medium" | "small"', default: '"big"', description: "Height/padding scale — also controls icon size expectations" },
+          { name: "size",       type: '"big" | "medium" | "small" | "xsmall"', default: '"big"', description: "Height/padding scale — also controls icon size expectations. Per design spec, xsmall is intended for tertiary." },
           { name: "iconStart",  type: "ReactNode", description: "Icon rendered before the label. Omit label (children) for icon-only layout" },
           { name: "iconEnd",    type: "ReactNode", description: "Icon rendered after the label. Omit label for icon-only layout" },
           { name: "disabled",   type: "boolean", default: "false", description: "Disabled styles and blocks interaction" },

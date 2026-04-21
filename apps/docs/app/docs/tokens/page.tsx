@@ -34,7 +34,7 @@ const COLORS = [
   { group: "Special", tokens: [
     { name: "arcade-gem",         hex: "#ea3fb8", label: "Gem currency / accent", usage: "text-arcade-gem" },
     { name: "arcade-border",      hex: "#8484b3", label: "Muted border / text",   usage: "border-arcade-border" },
-    { name: "arcade-border-dark", hex: "#24243b", label: "Subtle border",         usage: "border-arcade-border-dark" },
+    { name: "arcade-border-dark", hex: "#1b1b33", label: "Subtle border",         usage: "border-arcade-border-dark" },
   ]},
 ];
 
