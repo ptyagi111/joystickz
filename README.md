@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Joystickz
 
-## Getting Started
+The Joystickz (JSZ) design system — design tokens, components, and documentation — for Skillz's Arcade product and beyond.
 
-First, run the development server:
+## Layout
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+joystickz/
+├── apps/
+│   └── docs/         Next.js docs site → arcade-mcp-testing.vercel.app
+└── packages/
+    ├── tokens/       @ptyagi111/jsz-tokens — colors, typography, spacing, radii
+    └── web/          @ptyagi111/jsz-web    — React components (web)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+A `packages/native/` for React Native is planned — the Arcade RN app will consume `tokens` + `native` (same tokens, platform-specific components).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Local development
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install             # installs all workspaces
+npm run dev             # runs the docs site (apps/docs)
+npm run build           # builds the docs site
+npm run typecheck       # typechecks all workspaces
+```
 
-## Learn More
+## Publishing
 
-To learn more about Next.js, take a look at the following resources:
+Packages are configured to publish to GitHub Packages (`npm.pkg.github.com`). Actual `npm publish` is deferred until the repo migrates to the Skillz org and package scopes flip from `@ptyagi111/*` to `@skillz/*`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The docs site is deployed on Vercel. The Vercel project's Root Directory should be set to `apps/docs` in the dashboard — URL `arcade-mcp-testing.vercel.app` is preserved through the GitHub repo rename.
