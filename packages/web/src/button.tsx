@@ -2,7 +2,7 @@ import { type ButtonHTMLAttributes, type ReactNode } from "react";
 import { cn } from "./utils";
 
 type ButtonVariant = "primary" | "secondary" | "tertiary";
-type ButtonSize = "big" | "medium" | "small" | "xsmall";
+type ButtonSize = "big" | "medium" | "small" | "xsmall" | "link";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -21,6 +21,7 @@ const textSizeClasses: Record<ButtonSize, string> = {
   medium: "px-6 py-[14.5px] text-body-l font-bold leading-tight",
   small:  "px-5 py-[9px] text-body-m font-bold leading-none",
   xsmall: "px-3 py-1 text-body-s font-bold leading-none",
+  link:   "px-1 py-0.5 text-body-m font-bold leading-none underline underline-offset-2",
 };
 
 /** Equal padding (square) for icon-only buttons */
@@ -29,6 +30,7 @@ const iconOnlySizeClasses: Record<ButtonSize, string> = {
   medium: "p-[14.5px]",
   small:  "p-[9px]",
   xsmall: "p-1",
+  link:   "p-0.5",
 };
 
 /** Gap between icon and label when combined */
@@ -37,6 +39,7 @@ const iconGapClasses: Record<ButtonSize, string> = {
   medium: "gap-2",
   small:  "gap-1.5",
   xsmall: "gap-1",
+  link:   "gap-1",
 };
 
 /* ── variant tokens ───────────────────────────────────────────── */
@@ -47,7 +50,13 @@ const activeVariantClasses: Record<ButtonVariant, string> = {
   tertiary:  "border border-arcade-border text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]",
 };
 
+/** `link` is a chromeless size — text-only with an underline, no border/shadow/bg.
+ *  Per the Figma spec it's only defined for tertiary; applying it to other variants
+ *  will still work but strips their fill/border treatment. */
+const linkOverrideClasses = "!bg-none !bg-transparent !border-0 !shadow-none text-white";
+
 const disabledClasses = "bg-arcade-bg-tertiary text-white/20 cursor-not-allowed shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]";
+const linkDisabledClasses = "!bg-none !bg-transparent !border-0 !shadow-none text-white/20 cursor-not-allowed underline underline-offset-2";
 
 /* ── component ────────────────────────────────────────────────── */
 
@@ -64,14 +73,20 @@ export function Button({
   const isIconOnly = !children && (!!iconStart || !!iconEnd);
   const hasIconWithText = (!!iconStart || !!iconEnd) && !!children;
 
+  const isLink = size === "link";
+
   return (
     <button
       className={cn(
-        "inline-flex items-center justify-center rounded-full overflow-hidden font-sans transition-opacity",
+        "inline-flex items-center justify-center font-sans transition-opacity",
         "hover:opacity-90 active:opacity-75",
+        isLink ? "rounded-sm" : "rounded-full overflow-hidden",
         isIconOnly ? iconOnlySizeClasses[size] : textSizeClasses[size],
         hasIconWithText && iconGapClasses[size],
-        disabled ? disabledClasses : activeVariantClasses[variant],
+        disabled
+          ? (isLink ? linkDisabledClasses : disabledClasses)
+          : activeVariantClasses[variant],
+        isLink && !disabled && linkOverrideClasses,
         className
       )}
       disabled={disabled}
