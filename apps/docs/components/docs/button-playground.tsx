@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@ptyagi111/jsz-web";
 
 type Variant = "primary" | "secondary" | "tertiary";
-type Size = "big" | "medium" | "small" | "xsmall";
+type Size = "big" | "medium" | "small" | "xsmall" | "link";
 type IconMode = "none" | "start" | "end" | "both";
 
 function PlayIcon({ size = 18 }: { size?: number }) {
@@ -23,7 +23,7 @@ function ArrowRightIcon({ size = 18 }: { size?: number }) {
   );
 }
 
-const iconSize: Record<Size, number> = { big: 20, medium: 18, small: 16, xsmall: 12 };
+const iconSize: Record<Size, number> = { big: 20, medium: 18, small: 16, xsmall: 12, link: 12 };
 
 function SegmentedControl<T extends string>({
   label,
@@ -161,7 +161,7 @@ export function ButtonPlayground() {
 
           <SegmentedControl
             label="Size"
-            options={["big", "medium", "small", "xsmall"]}
+            options={["big", "medium", "small", "xsmall", "link"]}
             value={size}
             onChange={setSize}
           />
