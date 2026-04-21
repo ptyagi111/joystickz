@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leveling Up Our Design Process with AI — Skillz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --sb:#08090D;--ss:#0D1018;--sc:#13172A;--sd:#1A2035;
+  --sborder:rgba(255,255,255,0.07);--sborder2:rgba(255,255,255,0.12);
+  --st:#EEF0FF;--sm:#7B84A3;--smd:#A0A8C0;
+  --sblue:#1A5CFF;--sred:#FF2D2D;--sacc:#4D79FF;--sacc2:#7FA8FF;
+  --sgreen:#00C864;--syellow:#FFD166;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--sb);color:var(--st);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.65;overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(8,9,13,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--sborder);padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:58px;}
+.nav-logo{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--st);letter-spacing:-.02em;}
+.nav-logo span{color:var(--sacc);}
+.nav-links{display:flex;gap:6px;}
+.nav-link{font-size:12px;color:var(--sm);padding:5px 12px;border-radius:20px;text-decoration:none;transition:all .15s;cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;}
+.nav-link:hover{color:var(--sacc2);background:rgba(77,121,255,0.1);}
+.nav-cta{background:rgba(26,92,255,0.15);border:1px solid rgba(26,92,255,0.35);color:var(--sacc2);font-size:12px;padding:5px 14px;border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.nav-cta:hover{background:rgba(26,92,255,0.25);}
+
+/* ── SECTIONS ── */
+.section{padding:80px 48px 72px;border-bottom:1px solid var(--sborder);position:relative;}
+.section:last-child{border-bottom:none;}
+.slabel{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--sacc);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.slabel::after{content:'';flex:1;height:1px;background:rgba(77,121,255,0.2);}
+.stitle{font-family:'Syne',sans-serif;font-size:clamp(24px,4vw,40px);font-weight:800;color:var(--st);margin-bottom:10px;letter-spacing:-.02em;line-height:1.1;}
+.sdesc{font-size:15px;color:var(--sm);max-width:600px;margin-bottom:40px;line-height:1.7;}
+
+/* ── HERO ── */
+#hero{padding:100px 48px 80px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;border-bottom:1px solid var(--sborder);}
+.hero-glow{position:absolute;border-radius:50%;pointer-events:none;}
+.hero-glow.blue{width:600px;height:600px;background:radial-gradient(circle,rgba(26,92,255,0.12) 0%,transparent 65%);top:-100px;left:-100px;}
+.hero-glow.red{width:400px;height:400px;background:radial-gradient(circle,rgba(255,45,45,0.08) 0%,transparent 65%);bottom:-50px;right:100px;}
+.hero-glow.blue2{width:300px;height:300px;background:radial-gradient(circle,rgba(77,121,255,0.08) 0%,transparent 65%);top:40%;right:-50px;}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(26,92,255,0.12);border:1px solid rgba(26,92,255,0.28);color:var(--sacc2);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:20px;margin-bottom:28px;width:fit-content;}
+.pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--sblue);animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.85);}}
+#hero h1{font-family:'Syne',sans-serif;font-size:clamp(36px,6vw,72px);font-weight:800;line-height:1.02;letter-spacing:-.03em;margin-bottom:24px;color:var(--st);}
+#hero h1 .blue{color:var(--sacc);}
+#hero h1 .red{color:#FF6B6B;}
+.hero-sub{font-size:17px;color:var(--sm);max-width:580px;margin-bottom:40px;line-height:1.75;}
+.hero-meta{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:56px;}
+.meta-chip{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid var(--sborder2);border-radius:8px;padding:8px 14px;font-size:13px;color:var(--smd);}
+.meta-chip-icon{width:30px;height:30px;border-radius:6px;background:rgba(26,92,255,0.12);display:flex;align-items:center;justify-content:center;font-size:15px;}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--sborder);border:1px solid var(--sborder);border-radius:12px;overflow:hidden;max-width:720px;}
+.hstat{background:var(--sc);padding:20px 24px;}
+.hstat-num{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;line-height:1;margin-bottom:4px;}
+.hstat-num.blue{color:var(--sacc);}
+.hstat-num.red{color:#FF6B6B;}
+.hstat-num.green{color:var(--sgreen);}
+.hstat-label{font-size:12px;color:var(--sm);line-height:1.4;}
+
+/* ── PILLS ── */
+.pill{display:inline-block;font-size:11px;padding:3px 10px;border-radius:12px;font-weight:500;}
+.pg{background:rgba(26,92,255,0.15);color:var(--sacc2);border:1px solid rgba(26,92,255,0.25);}
+.pr{background:rgba(255,45,45,0.1);color:#FF9B9B;border:1px solid rgba(255,45,45,0.2);}
+.pgreen{background:rgba(0,200,100,0.1);color:#5BE09A;border:1px solid rgba(0,200,100,0.2);}
+.pyel{background:rgba(255,209,102,0.1);color:var(--syellow);border:1px solid rgba(255,209,102,0.2);}
+.pgray{background:rgba(255,255,255,0.05);color:var(--sm);border:1px solid var(--sborder2);}
+
+/* ── CARDS ── */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+.card{background:var(--sc);border:1px solid var(--sborder);border-radius:12px;padding:22px;transition:border-color .2s;}
+.card:hover{border-color:var(--sborder2);}
+.card.hi{border-color:rgba(26,92,255,0.3);background:rgba(26,92,255,0.06);}
+.card.hi:hover{border-color:rgba(26,92,255,0.5);}
+.card-icon{font-size:20px;margin-bottom:14px;width:42px;height:42px;border-radius:8px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;}
+.card.hi .card-icon{background:rgba(26,92,255,0.15);}
+.card h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--st);margin-bottom:6px;}
+.card p{font-size:13px;color:var(--sm);line-height:1.6;}
+
+/* ── WORKFLOW TABLE ── */
+.wf-wrap{border:1px solid var(--sborder);border-radius:12px;overflow:hidden;}
+.wf-head{display:grid;grid-template-columns:140px 1fr 1fr;background:var(--ss);}
+.wf-head>div{padding:10px 18px;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;}
+.wf-head .wf-h-b{color:#FF9B9B;}
+.wf-head .wf-h-a{color:var(--sacc2);border-left:1px solid var(--sborder);}
+.wf-row{display:grid;grid-template-columns:140px 1fr 1fr;border-top:1px solid var(--sborder);}
+.wf-stage{padding:16px 18px;font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--sm);display:flex;align-items:center;background:var(--ss);}
+.wf-before{padding:16px 18px;font-size:13px;color:#FFAAAA;background:rgba(255,45,45,0.04);line-height:1.5;}
+.wf-after{padding:16px 18px;font-size:13px;color:#A8BFFF;background:rgba(26,92,255,0.04);border-left:1px solid var(--sborder);line-height:1.5;}
+
+/* ── BLADE CALLOUT ── */
+.blade-box{background:var(--sc);border:1px solid rgba(26,92,255,0.25);border-left:3px solid var(--sblue);border-radius:12px;padding:24px 28px;}
+.blade-box h4{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--st);margin-bottom:8px;}
+.blade-box p{font-size:13px;color:var(--sm);line-height:1.7;}
+.blade-compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px;}
+.bc-box{border-radius:8px;padding:14px 16px;}
+.bc-razor{background:rgba(255,45,45,0.06);border:1px solid rgba(255,45,45,0.14);}
+.bc-skillz{background:rgba(26,92,255,0.06);border:1px solid rgba(26,92,255,0.14);}
+.bc-title{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
+.bc-razor .bc-title{color:#FF9B9B;}
+.bc-skillz .bc-title{color:var(--sacc2);}
+.bc-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.bc-list li{font-size:12px;color:var(--sm);padding-left:12px;position:relative;}
+.bc-list li::before{content:'—';position:absolute;left:0;opacity:.4;}
+
+/* ── DEMO TABS ── */
+.ex-tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;}
+.ex-tab{background:rgba(255,255,255,0.04);border:1px solid var(--sborder);color:var(--sm);font-size:12px;padding:7px 18px;border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.ex-tab:hover,.ex-tab.on{background:rgba(26,92,255,0.12);border-color:rgba(26,92,255,0.4);color:var(--sacc2);}
+.ex-panel{display:none;}
+.ex-panel.active{display:block;}
+
+/* ── DEMO SHELL ── */
+.demo-shell{background:var(--sc);border:1px solid var(--sborder);border-radius:12px;overflow:hidden;}
+.demo-bar{background:var(--ss);border-bottom:1px solid var(--sborder);padding:11px 16px;display:flex;align-items:center;gap:10px;}
+.demo-dots{display:flex;gap:5px;}
+.demo-dot{width:10px;height:10px;border-radius:50%;}
+.d1{background:#FF5F57;}.d2{background:#FEBC2E;}.d3{background:#28C840;}
+.demo-title{font-size:12px;color:var(--sm);font-family:'DM Sans',sans-serif;}
+.demo-split{display:grid;grid-template-columns:1fr 1fr;}
+.demo-pane{padding:18px;}
+.demo-pane.left{border-right:1px solid var(--sborder);}
+.pane-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--sborder);}
+.pane-label.blue{color:var(--sacc2);}
+.pane-label.gray{color:var(--sm);}
+
+/* ── CHAT ── */
+.chat-thread{display:flex;flex-direction:column;gap:10px;}
+.chat-msg{border-radius:10px;padding:10px 14px;font-size:12px;line-height:1.55;}
+.chat-user{background:rgba(26,92,255,0.12);border:1px solid rgba(26,92,255,0.22);color:#C0D0FF;align-self:flex-end;max-width:88%;}
+.chat-ai{background:rgba(255,255,255,0.04);border:1px solid var(--sborder);color:var(--st);align-self:flex-start;max-width:94%;}
+.chat-sender{font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;margin-bottom:5px;}
+.chat-sender.u{color:var(--sacc2);}.chat-sender.a{color:var(--sm);}
+
+/* ── CODE BLOCK ── */
+.code-block{background:rgba(0,0,0,.4);border:1px solid var(--sborder);border-radius:8px;padding:14px 16px;font-family:'DM Mono',monospace;font-size:11px;line-height:1.75;overflow-x:auto;margin-top:8px;}
+.kw{color:#FF9B9B;}.fn{color:var(--sacc2);}.str{color:#5BE09A;}.cm{color:#4B526E;}
+
+/* ── FIGMA FRAME ── */
+.figma-frame{background:rgba(0,0,0,.25);border:1px solid rgba(100,100,200,0.2);border-radius:8px;padding:14px;margin-top:8px;}
+.figma-comp{background:rgba(26,92,255,0.08);border:1px solid rgba(26,92,255,0.2);border-radius:6px;padding:8px 12px;margin-bottom:7px;}
+.figma-comp .cname{color:var(--sacc2);font-weight:500;font-size:11px;font-family:'DM Mono',monospace;}
+.figma-comp .cval{color:var(--sm);font-size:11px;}
+.spec-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;}
+.spec-row:last-child{border-bottom:none;}
+.spec-key{color:var(--sm);}.spec-val{color:var(--st);font-family:'DM Mono',monospace;font-size:10px;}
+
+/* ── AUDIT ── */
+.audit-item{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.audit-item:last-child{border-bottom:none;}
+.audit-badge{width:20px;height:20px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:700;margin-top:2px;}
+.ab-err{background:rgba(255,45,45,.15);color:#FF9B9B;}
+.ab-warn{background:rgba(255,209,102,.12);color:var(--syellow);}
+.ab-ok{background:rgba(0,200,100,.1);color:#5BE09A;}
+.audit-title{font-size:12px;color:var(--st);font-weight:500;margin-bottom:2px;}
+.audit-sub{font-size:11px;color:var(--sm);line-height:1.5;}
+.mono{font-family:'DM Mono',monospace;font-size:10px;}
+
+/* ── PROMPT TEMPLATES ── */
+.prompt-box{background:rgba(0,0,0,.25);border:1px solid var(--sborder);border-radius:8px;padding:16px 18px;margin-bottom:12px;}
+.prompt-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--sm);margin-bottom:8px;font-weight:600;}
+.prompt-text{font-size:12px;color:#B5CCFF;line-height:1.7;}
+.prompt-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+
+/* ── TWO-COL ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+
+/* ── ROADMAP ── */
+.rm-item{display:grid;grid-template-columns:110px 24px 1fr;gap:16px;align-items:start;padding:22px 0;border-bottom:1px solid var(--sborder);}
+.rm-item:last-child{border-bottom:none;}
+.rm-phase{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--sm);padding-top:3px;}
+.rm-dot{width:10px;height:10px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+.rm-dot.done{background:var(--sgreen);}
+.rm-dot.next{background:var(--sacc);}
+.rm-dot.future{background:rgba(255,255,255,.2);}
+.rm-content h4{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--st);margin-bottom:5px;}
+.rm-content p{font-size:13px;color:var(--sm);line-height:1.6;}
+
+/* ── ASK ── */
+.ask-box{background:var(--sc);border:1px solid rgba(0,200,100,.2);border-radius:12px;padding:28px;}
+.ask-box h4{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--st);margin-bottom:18px;}
+.ask-items{display:flex;flex-direction:column;gap:12px;}
+.ask-item{display:flex;align-items:flex-start;gap:12px;font-size:14px;color:var(--sm);line-height:1.6;}
+.ask-num{width:22px;height:22px;border-radius:50%;background:rgba(26,92,255,.2);color:var(--sacc2);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+
+/* ── LIVE DEMO ── */
+.demo-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.demo-step{background:var(--sc);border:1px solid var(--sborder);border-radius:10px;padding:20px;}
+.step-num{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sacc2);margin-bottom:10px;}
+.step-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--st);margin-bottom:5px;}
+.step-desc{font-size:12px;color:var(--sm);line-height:1.55;}
+
+/* ── FOOTER ── */
+footer{background:var(--ss);padding:24px 48px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--sborder);}
+.footer-logo{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--st);letter-spacing:-.02em;}
+.footer-logo span{color:var(--sacc);}
+.footer-note{font-size:12px;color:var(--sm);}
+
+/* ── ANIMATIONS ── */
+.fade-in{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+/* ── HIGHLIGHT INFO BOX ── */
+.info-box{border-radius:8px;padding:14px 18px;font-size:13px;line-height:1.65;}
+.info-box.blue{background:rgba(26,92,255,.07);border:1px solid rgba(26,92,255,.18);}
+.info-box.yellow{background:rgba(255,209,102,.06);border:1px solid rgba(255,209,102,.18);}
+.info-box.green{background:rgba(0,200,100,.06);border:1px solid rgba(0,200,100,.18);}
+.info-box .ib-title{font-weight:500;margin-bottom:4px;}
+.info-box.blue .ib-title{color:var(--sacc2);}
+.info-box.yellow .ib-title{color:var(--syellow);}
+.info-box.green .ib-title{color:#5BE09A;}
+.info-box p{color:var(--sm);}
+
+@media(max-width:768px){
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  #hero,.section{padding:60px 24px 50px;}
+  .hero-stats{grid-template-columns:repeat(2,1fr);}
+  .two-col,.demo-split,.blade-compare,.demo-steps{grid-template-columns:1fr;}
+  .demo-pane.left{border-right:none;border-bottom:1px solid var(--sborder);}
+  .wf-head,.wf-row{grid-template-columns:80px 1fr 1fr;}
+  .rm-item{grid-template-columns:90px 18px 1fr;}
+  footer{padding:20px 24px;flex-direction:column;gap:8px;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Skillz<span>.</span></div>
+  <div class="nav-links">
+    <button class="nav-link" onclick="scrollTo('#problem')">Problem</button>
+    <button class="nav-link" onclick="scrollTo('#built')">What we built</button>
+    <button class="nav-link" onclick="scrollTo('#workflow')">Workflow</button>
+    <button class="nav-link" onclick="scrollTo('#blade')">Blade</button>
+    <button class="nav-link" onclick="scrollTo('#examples')">Examples</button>
+    <button class="nav-link" onclick="scrollTo('#roadmap')">Roadmap</button>
+    <button class="nav-link" onclick="scrollTo('#ask')">The ask</button>
+  </div>
+  <button class="nav-cta" onclick="scrollTo('#ask')">The ask →</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow blue"></div>
+  <div class="hero-glow red"></div>
+  <div class="hero-glow blue2"></div>
+  <div class="hero-tag"><div class="pulse-dot"></div> Internal Pitch · Product Design · April 2026</div>
+  <h1>Leveling Up Our<br><span class="blue">Design Process</span><br>with <span class="red">AI</span></h1>
+  <p class="hero-sub">How we cut the design-to-production gap in half, make our design system do real work, and let every designer ship code — starting today. Not theoretical. Already built.</p>
+  <div class="hero-meta">
+    <div class="meta-chip"><div class="meta-chip-icon">⚡</div>Stack is live — not a proposal</div>
+    <div class="meta-chip"><div class="meta-chip-icon">🎯</div>4 workflow stages transformed</div>
+    <div class="meta-chip"><div class="meta-chip-icon">🛠</div>Figma MCP · Claude · Git · Vercel</div>
+    <div class="meta-chip"><div class="meta-chip-icon">📐</div>Design system as the backbone</div>
+  </div>
+  <div class="hero-stats fade-in">
+    <div class="hstat"><div class="hstat-num red">3–5×</div><div class="hstat-label">Review rounds per screen today</div></div>
+    <div class="hstat"><div class="hstat-num red">40%</div><div class="hstat-label">Dev time spent interpreting design</div></div>
+    <div class="hstat"><div class="hstat-num blue">~90s</div><div class="hstat-label">Figma → working code with AI</div></div>
+    <div class="hstat"><div class="hstat-num green">1–2×</div><div class="hstat-label">Review rounds with new workflow</div></div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem" class="section">
+  <div class="slabel">01</div>
+  <h2 class="stitle">Where momentum dies in product work</h2>
+  <p class="sdesc">The design → code handoff is not a people problem — it's a tooling problem. Every step forces manual re-interpretation, and each gap is where time, intent, and design system compliance are lost.</p>
+  <div class="cards-grid fade-in">
+    <div class="card">
+      <div class="card-icon">📐</div>
+      <h3>Designers spec. Developers guess.</h3>
+      <p>Even with Figma, intent gets lost. Component names differ from code. Token values drift. Each interpretation adds a review cycle.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧩</div>
+      <h3>Design system exists. Nobody uses it in code.</h3>
+      <p>We built the DS. But without a forcing function at code-generation time, developers write their own CSS instead of pulling from tokens.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⏱</div>
+      <h3>Review cycles eat sprints.</h3>
+      <p>3–5 back-and-forth rounds per screen is normal. Each round is async, slow, and introduces new drift between design and implementation.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">♿</div>
+      <h3>Accessibility caught too late.</h3>
+      <p>Contrast issues, missing ARIA labels, and semantic errors are found in QA — or worse, by users. By then they're expensive to fix.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE BUILT -->
+<section id="built" class="section">
+  <div class="slabel">02</div>
+  <h2 class="stitle">What we've already built</h2>
+  <p class="sdesc">This is not a proposal deck. Every tool listed below is live in our pipeline right now. This is the foundation everything else builds on.</p>
+  <div class="cards-grid fade-in">
+    <div class="card hi">
+      <div class="card-icon">🔗</div>
+      <h3>Figma MCP</h3>
+      <p>Claude reads Figma frames directly via MCP. No manual spec writing — AI sees exactly what the designer sees and extracts components, tokens, and layout.</p>
+      <div style="margin-top:12px;"><span class="pill pgreen">Live</span></div>
+    </div>
+    <div class="card hi">
+      <div class="card-icon">📖</div>
+      <h3>Design System Documentation</h3>
+      <p>Full component library + token system, versioned and deployed. The source of truth Claude references when generating code. Live at our docs site.</p>
+      <div style="margin-top:12px;"><span class="pill pgreen">Live</span></div>
+    </div>
+    <div class="card hi">
+      <div class="card-icon">🚀</div>
+      <h3>Git + Vercel Pipeline</h3>
+      <p>Every PR gets a Vercel preview URL automatically. Every change is versioned. Designers see results in browser within minutes — no environment setup.</p>
+      <div style="margin-top:12px;"><span class="pill pgreen">Live</span></div>
+    </div>
+    <div class="card hi">
+      <div class="card-icon">🤖</div>
+      <h3>Claude Code</h3>
+      <p>AI that writes code using our actual component imports, token names, and DS rules — not generic patterns. Informed by our docs at generation time.</p>
+      <div style="margin-top:12px;"><span class="pill pg">In use</span></div>
+    </div>
+  </div>
+  <div class="info-box blue fade-in" style="margin-top:20px;">
+    <div class="ib-title">The key insight</div>
+    <p>The design system documentation + Figma MCP + Claude form a closed loop. The AI knows our rules at generation time — so output is DS-compliant by default, not after review.</p>
+  </div>
+</section>
+
+<!-- WORKFLOW -->
+<section id="workflow" class="section">
+  <div class="slabel">03</div>
+  <h2 class="stitle">Before vs. after</h2>
+  <p class="sdesc">Same four stages of product work. Radically different execution. AI doesn't replace the designer — it removes the translation tax at every handoff boundary.</p>
+  <div class="wf-wrap fade-in">
+    <div class="wf-head">
+      <div style="color:var(--sm);">Stage</div>
+      <div class="wf-h-b">Before — manual</div>
+      <div class="wf-h-a">After — AI-enabled</div>
+    </div>
+    <div class="wf-row">
+      <div class="wf-stage">Ideation</div>
+      <div class="wf-before">Blank canvas. Designer brainstorms without system constraints. Patterns invented from scratch each time.</div>
+      <div class="wf-after">Claude generates layout options using our actual DS components from the start. Ideas stay on-system.</div>
+    </div>
+    <div class="wf-row">
+      <div class="wf-stage">Design</div>
+      <div class="wf-before">Designer annotates specs manually. Writes component names, token values, states by hand. 1–2 hours per screen.</div>
+      <div class="wf-after">Figma MCP: Claude reads the frame and auto-generates a structured component spec in ~30 seconds.</div>
+    </div>
+    <div class="wf-row">
+      <div class="wf-stage">Code</div>
+      <div class="wf-before">Developer interprets spec. Writes from scratch. Often creates custom CSS instead of using DS tokens. Drift begins here.</div>
+      <div class="wf-after">Claude generates code with correct import paths, token names, and variant names — directly from the Figma read.</div>
+    </div>
+    <div class="wf-row">
+      <div class="wf-stage">Review</div>
+      <div class="wf-before">3–5 back-and-forth rounds. Async, slow. Each round re-introduces context loss and minor re-interpretation.</div>
+      <div class="wf-after">Vercel preview link shared instantly. Plain English feedback → Claude iterates. 1–2 rounds typical.</div>
+    </div>
+  </div>
+  <div class="two-col fade-in" style="margin-top:20px;">
+    <div class="info-box yellow">
+      <div class="ib-title">Time saved per screen (estimate)</div>
+      <p>Spec writing: ~90 min → ~2 min. Code generation: ~3h → ~20 min. Review cycles: 3–5 rounds → 1–2 rounds. Rough total: 4–6h per screen saved.</p>
+    </div>
+    <div class="info-box green">
+      <div class="ib-title">Quality improvement</div>
+      <p>DS token compliance enforced at generation. Accessibility issues surfaced before handoff. Design intent preserved end-to-end — no interpretation loss.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BLADE -->
+<section id="blade" class="section">
+  <div class="slabel">04</div>
+  <h2 class="stitle">What Razorpay's Blade taught us</h2>
+  <p class="sdesc">Razorpay built Blade — a fully public, open-source design system — to standardize UI across their product ecosystem. It's the clearest example of what happens when a design system is treated as first-class infrastructure, not an afterthought.</p>
+  <div class="blade-box fade-in">
+    <h4>blade.razorpay.com — why it's the reference</h4>
+    <p>Blade is Razorpay's open-source design system: 60+ components, live Storybook docs, Figma libraries, design tokens, and contribution guidelines — all public. It enforces consistency across 200+ engineers without creating a design bottleneck. Every component decision is documented, versioned, and accessible by default. The result: zero design-developer translation loss at scale.</p>
+    <div class="blade-compare">
+      <div class="bc-box bc-razor">
+        <div class="bc-title">Razorpay · Blade</div>
+        <ul class="bc-list">
+          <li>Web + React Native UI components</li>
+          <li>Open-source, external contributors</li>
+          <li>UI toolkit is the core product</li>
+          <li>Designers control the component API</li>
+          <li>Storybook as documentation layer</li>
+          <li>External developer ecosystem</li>
+        </ul>
+      </div>
+      <div class="bc-box bc-skillz">
+        <div class="bc-title">Skillz · Our opportunity</div>
+        <ul class="bc-list">
+          <li>SDK-first: we abstract the UI layer</li>
+          <li>DS value is internal team velocity</li>
+          <li>AI enforces DS at generation time</li>
+          <li>Same philosophy, right form factor</li>
+          <li>Our docs site is our "Blade equivalent"</li>
+          <li>Game devs own their art direction</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="info-box blue fade-in" style="margin-top:18px;">
+    <div class="ib-title">The key distinction — why we don't build Blade directly</div>
+    <p>Skillz game developers integrate via SDK, so a React component library would be redundant — they own their own art direction and game UI. Our design system value is entirely internal: it makes our own team faster and more consistent. What Blade does for Razorpay's web product, our DS + AI workflow does for our internal product team. Same outcome, right-sized implementation.</p>
+  </div>
+</section>
+
+<!-- EXAMPLES & DEMO -->
+<section id="examples" class="section">
+  <div class="slabel">05</div>
+  <h2 class="stitle">Examples &amp; live demos</h2>
+  <p class="sdesc">These represent actual workflows in our pipeline today — not hypotheticals. Three scenarios showing the AI loop in action.</p>
+
+  <div class="ex-tabs">
+    <button class="ex-tab on" onclick="showEx('figma',this)">Figma → Spec → Code</button>
+    <button class="ex-tab" onclick="showEx('audit',this)">AI design audit</button>
+    <button class="ex-tab" onclick="showEx('prompt',this)">Prompt library</button>
+  </div>
+
+  <!-- TAB 1 -->
+  <div id="ex-figma" class="ex-panel active fade-in">
+    <p style="font-size:13px;color:var(--sm);margin-bottom:16px;">Designer shares a Figma link → Claude reads via MCP → extracts component spec → generates production code using our exact DS tokens and import paths. No spec doc. No interpretation.</p>
+    <div class="demo-shell">
+      <div class="demo-bar"><div class="demo-dots"><div class="demo-dot d1"></div><div class="demo-dot d2"></div><div class="demo-dot d3"></div></div><div class="demo-title">Claude Code — Figma to Code · LobbyScreen</div></div>
+      <div class="demo-split">
+        <div class="demo-pane left">
+          <div class="pane-label gray">Designer prompt + Figma MCP read</div>
+          <div class="chat-thread">
+            <div class="chat-msg chat-user"><div class="chat-sender u">Designer</div>Build the player lobby screen. Figma link: figma.com/file/xxx/Lobby — use our design system.</div>
+            <div class="chat-msg chat-ai"><div class="chat-sender a">Claude</div>Reading Figma frame via MCP... Found 4 components.</div>
+            <div class="figma-frame">
+              <div style="font-size:10px;color:var(--sm);margin-bottom:8px;letter-spacing:.08em;text-transform:uppercase;">Frame · LobbyScreen detected</div>
+              <div class="figma-comp"><div class="cname">PlayerCard</div><div class="cval">variant=active · x4 instances</div></div>
+              <div class="figma-comp"><div class="cname">HUD</div><div class="cval">variant=default · top-pinned</div></div>
+              <div class="figma-comp"><div class="cname">FilterChip</div><div class="cval">All · Solo · Teams · x3</div></div>
+              <div class="figma-comp"><div class="cname">PrimaryButton</div><div class="cval">label="Join Match" · size=lg</div></div>
+              <div style="margin-top:10px;border-top:1px solid rgba(255,255,255,.06);padding-top:8px;">
+                <div class="spec-row"><span class="spec-key">page bg</span><span class="spec-val">arcade-bg</span></div>
+                <div class="spec-row"><span class="spec-key">card bg</span><span class="spec-val">arcade-bg-secondary</span></div>
+                <div class="spec-row"><span class="spec-key">font</span><span class="spec-val">DM Sans · Tailwind v4</span></div>
+                <div class="spec-row"><span class="spec-key">imports</span><span class="spec-val">@/components/ui</span></div>
+              </div>
+            </div>
+            <div class="chat-msg chat-ai"><div class="chat-sender a">Claude</div>Spec extracted. Generating code now — using your exact token names and import paths. No custom CSS.</div>
+          </div>
+        </div>
+        <div class="demo-pane">
+          <div class="pane-label blue">Generated output · DS-compliant</div>
+          <div class="code-block"><span class="kw">import</span> { PlayerCard, HUD, FilterChip,<br>&nbsp;&nbsp;PrimaryButton } <span class="kw">from</span> <span class="str">"@/components/ui"</span><br><br><span class="kw">export default function</span> <span class="fn">LobbyScreen</span>() {<br>&nbsp;&nbsp;<span class="kw">return</span> (<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="fn">div</span> className=<span class="str">"bg-arcade-bg min-h-screen"</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="fn">HUD</span> variant=<span class="str">"default"</span> /&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="fn">div</span> className=<span class="str">"flex gap-2 px-4 pt-4"</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{[<span class="str">"All"</span>,<span class="str">"Solo"</span>,<span class="str">"Teams"</span>].map(l=&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="fn">FilterChip</span> key={l} label={l} /&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;))}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="fn">div</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="fn">div</span> className=<span class="str">"grid grid-cols-2 gap-3 p-4"</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{players.map(p=&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="fn">PlayerCard</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key={p.id} {...p}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;variant=<span class="str">"active"</span> /&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;))}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="fn">div</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="fn">PrimaryButton</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;size=<span class="str">"lg"</span> label=<span class="str">"Join Match"</span> /&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="fn">div</span>&gt;<br>&nbsp;&nbsp;)<br>}</div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:12px;">
+            <span class="pill pg">Correct tokens</span>
+            <span class="pill pgreen">Real import paths</span>
+            <span class="pill pgreen">DS-compliant</span>
+            <span class="pill pyel">Zero custom CSS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="two-col" style="margin-top:14px;">
+      <div class="info-box yellow">
+        <div class="ib-title">Before this workflow</div>
+        <p>Designer writes spec doc (1–2h) → dev reads + interprets (30–60 min) → writes code → review ×3. Total: half a sprint.</p>
+      </div>
+      <div class="info-box green">
+        <div class="ib-title">With this workflow</div>
+        <p>Designer shares Figma link → Claude reads + generates in ~90 sec → Vercel preview URL → 1 review round. Total: under an hour.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2 -->
+  <div id="ex-audit" class="ex-panel">
+    <p style="font-size:13px;color:var(--sm);margin-bottom:16px;">Claude audits a design against our DS rules — catching token drift, missing variants, and accessibility failures before any developer sees the design. Issues found at spec time cost zero rework.</p>
+    <div class="two-col fade-in">
+      <div class="demo-shell">
+        <div class="demo-bar"><div class="demo-dots"><div class="demo-dot d1"></div><div class="demo-dot d2"></div><div class="demo-dot d3"></div></div><div class="demo-title">Audit results · tournament-screen.fig</div></div>
+        <div style="padding:18px;">
+          <div style="font-size:10px;color:var(--sm);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;font-weight:600;">5 findings · 2 critical · 2 warnings · 1 pass</div>
+          <div class="audit-item">
+            <div class="audit-badge ab-err">!</div>
+            <div><div class="audit-title">Token mismatch — card background</div><div class="audit-sub">Uses #1A1F35 directly. Should be <span class="mono" style="color:#5BE09A;">arcade-bg-secondary</span>. Hardcoded hex breaks theming.</div></div>
+          </div>
+          <div class="audit-item">
+            <div class="audit-badge ab-err">!</div>
+            <div><div class="audit-title">Contrast fail — secondary text</div><div class="audit-sub">Gray text on card is 2.9:1. WCAG AA requires 4.5:1. Use <span class="mono" style="color:#5BE09A;">text-arcade-secondary</span>.</div></div>
+          </div>
+          <div class="audit-item">
+            <div class="audit-badge ab-warn">~</div>
+            <div><div class="audit-title">Custom font-size on header</div><div class="audit-sub">21px used. Nearest DS token: <span class="mono" style="color:var(--syellow);">text-xl (20px)</span> or <span class="mono" style="color:var(--syellow);">text-2xl (24px)</span>.</div></div>
+          </div>
+          <div class="audit-item">
+            <div class="audit-badge ab-warn">~</div>
+            <div><div class="audit-title">Button variant not in DS</div><div class="audit-sub">"ghost-red" used. Closest match: <span class="mono" style="color:var(--syellow);">ghost-danger</span>. Fix before dev handoff.</div></div>
+          </div>
+          <div class="audit-item">
+            <div class="audit-badge ab-ok">✓</div>
+            <div><div class="audit-title">Spacing is correct</div><div class="audit-sub">All padding and gap values align with Tailwind v4 scale. No custom spacing detected.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="demo-shell">
+        <div class="demo-bar"><div class="demo-dots"><div class="demo-dot d1"></div><div class="demo-dot d2"></div><div class="demo-dot d3"></div></div><div class="demo-title">Chat · audit + auto-fix</div></div>
+        <div style="padding:18px;">
+          <div class="chat-thread">
+            <div class="chat-msg chat-user"><div class="chat-sender u">Designer</div>Audit this Figma frame against our DS. Flag anything that doesn't use tokens or violates accessibility.</div>
+            <div class="chat-msg chat-ai"><div class="chat-sender a">Claude</div>Reading frame via Figma MCP... Found 2 critical issues and 2 warnings.<br><br><strong>Critical:</strong> hardcoded hex on cards, and a 2.9:1 contrast ratio on secondary text — both fail WCAG AA.<br><strong>Warnings:</strong> custom font-size (21px) and a button variant name mismatch.<br><br>Want me to fix the critical issues automatically?</div>
+            <div class="chat-msg chat-user"><div class="chat-sender u">Designer</div>Yes, fix the critical ones only.</div>
+            <div class="chat-msg chat-ai"><div class="chat-sender a">Claude</div>Done. Card bg → <span class="mono" style="color:#5BE09A;">bg-arcade-bg-secondary</span>. Text → <span class="mono" style="color:#5BE09A;">text-arcade-secondary</span> (4.8:1 contrast now). No visual change — tokens resolve to the same values, but now they'll update with your theme and pass accessibility.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-box yellow fade-in" style="margin-top:14px;">
+      <div class="ib-title">Why catching this at design time matters</div>
+      <p>A contrast issue found in QA requires a designer fix, a developer change, a new PR, a new deploy, and another QA check. Found at the design stage: one token swap, done in 10 seconds.</p>
+    </div>
+  </div>
+
+  <!-- TAB 3 -->
+  <div id="ex-prompt" class="ex-panel">
+    <p style="font-size:13px;color:var(--sm);margin-bottom:16px;">Standardized prompts any designer can drop into Claude Code — pre-loaded with our DS context. The point: the designer who set this up shouldn't be the only one who can use it well.</p>
+    <div style="display:flex;flex-direction:column;gap:12px;" class="fade-in">
+      <div class="prompt-box">
+        <div class="prompt-label">Template 01 · New screen</div>
+        <div class="prompt-text">Build a [screen name] screen using the Arcade/Skillz design system. Background: bg-arcade-bg. Cards: bg-arcade-bg-secondary. Font: DM Sans via Tailwind v4. Use only components from @/components/ui. Components needed: [list from Figma or describe]. Accent color: arcade-brand. Do not add custom CSS — use only Tailwind utility classes and DS tokens.</div>
+        <div class="prompt-tags"><span class="pill pg">New screens</span><span class="pill pg">Ideation</span></div>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-label">Template 02 · Figma to spec</div>
+        <div class="prompt-text">Read the Figma frame at [link] via MCP. Extract: (1) every component used + variant name, (2) token values for bg, text, spacing, (3) any custom values that deviate from our DS, (4) a one-paragraph handoff note for a developer. Output as a structured spec I can paste into Jira.</div>
+        <div class="prompt-tags"><span class="pill pyel">Design handoff</span><span class="pill pyel">Figma MCP</span></div>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-label">Template 03 · DS audit</div>
+        <div class="prompt-text">Audit the Figma frame at [link] against the Arcade design system docs at [docs URL]. Flag: (1) hardcoded color values that should be tokens, (2) font sizes not on our type scale, (3) contrast ratios below 4.5:1, (4) component variants not in our DS. Format: Critical / Warning / Pass.</div>
+        <div class="prompt-tags"><span class="pill pr">DS compliance</span><span class="pill pr">Accessibility</span></div>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-label">Template 04 · Iterate from feedback</div>
+        <div class="prompt-text">Look at the current [component/screen]. Feedback: [plain English description of what's wrong]. Make only the changes needed. Do not refactor other parts. Use DS tokens — no new custom CSS. After the change, list what you modified and why.</div>
+        <div class="prompt-tags"><span class="pill pgreen">Iteration</span><span class="pill pgreen">Review cycles</span></div>
+      </div>
+    </div>
+    <div class="info-box blue fade-in" style="margin-top:16px;">
+      <div class="ib-title">The democratizing layer</div>
+      <p>Right now, whoever set this workflow up can get great output because they know how to prompt. The prompt library removes that dependency — it's stored in the repo, versioned, and improvable by anyone. Every designer on the team gets access to the same quality of output.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE DEMO -->
+<section id="demo" class="section">
+  <div class="slabel">06</div>
+  <h2 class="stitle">The 60-second room demo</h2>
+  <p class="sdesc">During the presentation — do this live. No scripted output, no pre-built demo. The unscripted nature is the point: it works on any Figma frame, right now.</p>
+  <div class="demo-steps fade-in">
+    <div class="demo-step">
+      <div class="step-num">Step 1 · 10 seconds</div>
+      <div class="step-title">Share a Figma link</div>
+      <div class="step-desc">Open Claude Code. Paste any live Figma frame URL — something the audience can see on the projected screen. No prep needed.</div>
+    </div>
+    <div class="demo-step">
+      <div class="step-num">Step 2 · 30 seconds</div>
+      <div class="step-title">Claude reads it live</div>
+      <div class="step-desc">Watch Claude call the Figma MCP, extract components and tokens, and generate DS-compliant code. Unscripted, unrehearsed. That's the point.</div>
+    </div>
+    <div class="demo-step">
+      <div class="step-num">Step 3 · 20 seconds</div>
+      <div class="step-title">Open the Vercel preview</div>
+      <div class="step-desc">Pull up a preview URL from a recent PR built this way. Show a real screen, built with this exact workflow, already in staging or production.</div>
+    </div>
+  </div>
+  <div class="info-box yellow fade-in" style="margin-top:20px;max-width:640px;">
+    <div class="ib-title">Why this lands better than any slide</div>
+    <p>An exec who watches Claude read a Figma frame and produce real, import-correct code in 90 seconds doesn't need to be convinced by ROI math. They've already seen it.</p>
+  </div>
+</section>
+
+<!-- WHAT ELSE -->
+<section id="more" class="section">
+  <div class="slabel">07</div>
+  <h2 class="stitle">The next layer — what becomes possible</h2>
+  <p class="sdesc">What's live today is the foundation. Once this workflow is standardized across the team, these are the natural next capabilities — each one compounding on the last.</p>
+  <div class="cards-grid fade-in">
+    <div class="card">
+      <div class="card-icon">🧠</div>
+      <h3>CLAUDE.md in repo</h3>
+      <p>Persistent AI memory of our design system. Every Claude Code session auto-knows our tokens, components, and rules — no re-prompting each time.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📋</div>
+      <h3>Prompt library</h3>
+      <p>Standardized prompts for common screen types — stored in the repo, versioned, improvable by anyone. Democratizes the workflow beyond the person who set it up.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔍</div>
+      <h3>DS compliance in PRs</h3>
+      <p>Claude flags token drift and DS violations in code review automatically. Enforcement moves from "please follow the DS" to "the PR won't pass if you don't."</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">♿</div>
+      <h3>Accessibility at spec time</h3>
+      <p>Contrast ratios, ARIA roles, semantic structure — checked at the design stage. Issues cost nothing to fix when they're caught before code is written.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📝</div>
+      <h3>Auto-docs generation</h3>
+      <p>When a new component is built in code, Claude drafts the documentation page. DS docs stay current without a dedicated documentation sprint.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔄</div>
+      <h3>Design ↔ code feedback loop</h3>
+      <p>When code diverges from design, Claude diffs intent vs implementation and proposes token fixes — closing the loop instead of letting drift accumulate.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap" class="section">
+  <div class="slabel">08</div>
+  <h2 class="stitle">Roadmap — where we are, where we go</h2>
+  <p class="sdesc">Phased approach. We're not starting from zero — Phases 1 and 2 are already underway. Each phase compounds on the last.</p>
+  <div class="fade-in">
+    <div class="rm-item">
+      <div class="rm-phase">Phase 1</div>
+      <div class="rm-dot done"></div>
+      <div class="rm-content">
+        <h4>Foundation <span class="pill pgreen" style="margin-left:8px;">Done</span></h4>
+        <p>Figma MCP connected and tested · Design system documented and deployed · Git + Vercel preview pipeline live · Claude Code in active use · Docs site published with components and tokens</p>
+      </div>
+    </div>
+    <div class="rm-item">
+      <div class="rm-phase">Phase 2</div>
+      <div class="rm-dot next"></div>
+      <div class="rm-content">
+        <h4>Standardize <span class="pill pg" style="margin-left:8px;">Next up</span></h4>
+        <p>CLAUDE.md in codebase · Prompt template library built and committed to repo · 2–3 more designers onboarded onto Claude Code + Figma MCP · AI-assisted design review defined as a sprint step · First measurement of DS compliance rate</p>
+      </div>
+    </div>
+    <div class="rm-item">
+      <div class="rm-phase">Phase 3</div>
+      <div class="rm-dot future"></div>
+      <div class="rm-content">
+        <h4>Automate <span class="pill pgray" style="margin-left:8px;">Planned</span></h4>
+        <p>DS compliance checks in PR workflow · Auto-docs generation on component creation · Accessibility audit at spec time as a standard gate · Measure and report DS compliance % per sprint · Evaluate expanding to other internal teams</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ASK -->
+<section id="ask" class="section">
+  <div class="slabel">09</div>
+  <h2 class="stitle">The ask</h2>
+  <p class="sdesc">Not asking for budget or new hires. Asking for mandate — permission to formalize and scale what already works.</p>
+  <div class="ask-box fade-in">
+    <h4>Four things to make this the team standard</h4>
+    <div class="ask-items">
+      <div class="ask-item"><div class="ask-num">1</div><span>Formalize this as the team default — not optional, not just the designer who set it up. It becomes how we work.</span></div>
+      <div class="ask-item"><div class="ask-num">2</div><span>Invest 1 sprint to build the CLAUDE.md and prompt library so the whole team benefits from the foundation already built.</span></div>
+      <div class="ask-item"><div class="ask-num">3</div><span>Onboard 2–3 more designers onto Claude Code + Figma MCP with structured training — not ad hoc self-discovery.</span></div>
+      <div class="ask-item"><div class="ask-num">4</div><span>Define "AI-assisted design review" as a step in the sprint process — scheduled, documented, and consistently applied.</span></div>
+    </div>
+  </div>
+  <div class="two-col fade-in" style="margin-top:20px;">
+    <div class="info-box green">
+      <div class="ib-title">What success looks like in 60 days</div>
+      <p>Every designer on the team can go from Figma frame to Vercel preview without writing a spec doc. DS compliance rate measurably up. Review cycles measurably down.</p>
+    </div>
+    <div class="info-box blue">
+      <div class="ib-title">What failure looks like</div>
+      <p>We keep this as one designer's personal workflow. The tooling exists, the opportunity exists, but the team gets none of the compounding benefit because it was never standardized.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Skillz<span>.</span></div>
+  <div class="footer-note">Product Design · Internal Pitch · April 2026</div>
+  <div class="footer-note" style="display:flex;gap:12px;">
+    <button class="nav-link" style="cursor:pointer;" onclick="scrollTo('#hero')">Back to top ↑</button>
+  </div>
+</footer>
+
+<script>
+function scrollTo(id){document.querySelector(id).scrollIntoView({behavior:'smooth'});}
+
+function showEx(id,btn){
+  document.querySelectorAll('.ex-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ex-tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('ex-'+id).classList.add('active');
+  btn.classList.add('on');
+}
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});
+},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>

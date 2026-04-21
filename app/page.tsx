@@ -7,6 +7,11 @@ const entries = [
     description: "Your account and stats",
   },
   {
+    href: "/leaderboard",
+    label: "Leaderboard",
+    description: "Weekly rankings & prize pool",
+  },
+  {
     href: "/docs",
     label: "Docs",
     description: "Component library & design tokens",
