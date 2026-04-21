@@ -221,7 +221,7 @@ export default function DocsOverview() {
           </span>
 
           <h1 className="text-[3rem] font-extrabold text-white tracking-tight leading-none mb-4">
-            Arcade Design System
+            Joystickz Design System
           </h1>
           <p className="text-[16px] text-white/50 max-w-md mx-auto leading-relaxed mb-8">
             Bold, expressive components built for arcade gaming. Tailwind v4 + DM Sans.

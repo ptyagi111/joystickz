@@ -11,6 +11,7 @@ const NAV: NavGroup[] = [
     title: "Getting Started",
     items: [
       { label: "Overview",       href: "/docs" },
+      { label: "Why Joystickz",  href: "/docs/why-joystickz" },
       { label: "Design Tokens",  href: "/docs/tokens" },
     ],
   },
@@ -81,7 +82,7 @@ export function Sidebar() {
           </svg>
         </div>
         <div className="flex-1 min-w-0">
-          <div className="font-extrabold text-white text-[14px] leading-none">Arcade</div>
+          <div className="font-extrabold text-white text-[14px] leading-none">Joystickz</div>
           <div className="text-[10px] text-white/35 mt-0.5 leading-none">Design System</div>
         </div>
         <span className="text-[10px] font-bold text-arcade-brand/60 border border-arcade-brand/20 rounded-full px-1.5 py-0.5 bg-arcade-brand/5 shrink-0">
@@ -140,7 +141,7 @@ export function Sidebar() {
 
       {/* Footer */}
       <div className="px-5 py-3.5 border-t border-white/[0.06] shrink-0 flex items-center justify-between">
-        <p className="text-[11px] text-white/20">Arcade DS v1.0</p>
+        <p className="text-[11px] text-white/20">Joystickz DS v1.0</p>
         <span className="text-[10px] text-white/15">DM Sans · Tailwind v4</span>
       </div>
     </aside>
